@@ -1,0 +1,261 @@
+machine-str.o: machine-str.c m2skernel.h ../../src/libmhandle/mhandle.h \
+ /extra/tool-chain/sysroot/usr/include/stdlib.h \
+ /extra/tool-chain/sysroot/usr/include/features.h \
+ /extra/tool-chain/sysroot/usr/include/bits/predefs.h \
+ /extra/tool-chain/sysroot/usr/include/sys/cdefs.h \
+ /extra/tool-chain/sysroot/usr/include/bits/wordsize.h \
+ /extra/tool-chain/sysroot/usr/include/gnu/stubs.h \
+ /extra/tool-chain/sysroot/usr/include/gnu/stubs-32.h \
+ /extra/tool-chain/tools/lib/gcc/i686-sangita-linux-gnu/4.4.3/include/stddef.h \
+ /extra/tool-chain/sysroot/usr/include/sys/types.h \
+ /extra/tool-chain/sysroot/usr/include/bits/types.h \
+ /extra/tool-chain/sysroot/usr/include/bits/typesizes.h \
+ /extra/tool-chain/sysroot/usr/include/time.h \
+ /extra/tool-chain/sysroot/usr/include/endian.h \
+ /extra/tool-chain/sysroot/usr/include/bits/endian.h \
+ /extra/tool-chain/sysroot/usr/include/bits/byteswap.h \
+ /extra/tool-chain/sysroot/usr/include/sys/select.h \
+ /extra/tool-chain/sysroot/usr/include/bits/select.h \
+ /extra/tool-chain/sysroot/usr/include/bits/sigset.h \
+ /extra/tool-chain/sysroot/usr/include/bits/time.h \
+ /extra/tool-chain/sysroot/usr/include/sys/sysmacros.h \
+ /extra/tool-chain/sysroot/usr/include/bits/pthreadtypes.h \
+ /extra/tool-chain/sysroot/usr/include/alloca.h \
+ /extra/tool-chain/sysroot/usr/include/string.h \
+ /extra/tool-chain/sysroot/usr/include/xlocale.h \
+ /extra/tool-chain/sysroot/usr/include/bits/string.h \
+ /extra/tool-chain/sysroot/usr/include/bits/string2.h \
+ ../../src/libstruct/debug.h \
+ /extra/tool-chain/sysroot/usr/include/stdio.h \
+ /extra/tool-chain/sysroot/usr/include/libio.h \
+ /extra/tool-chain/sysroot/usr/include/_G_config.h \
+ /extra/tool-chain/sysroot/usr/include/wchar.h \
+ /extra/tool-chain/tools/lib/gcc/i686-sangita-linux-gnu/4.4.3/include/stdarg.h \
+ /extra/tool-chain/sysroot/usr/include/bits/stdio_lim.h \
+ /extra/tool-chain/sysroot/usr/include/bits/sys_errlist.h \
+ /extra/tool-chain/sysroot/usr/include/bits/stdio.h \
+ ../../src/libstruct/config.h ../../src/libstruct/buffer.h \
+ ../../src/libstruct/list.h ../../src/libstruct/lnlist.h \
+ ../../src/libmisc/misc.h /extra/tool-chain/sysroot/usr/include/stdint.h \
+ /extra/tool-chain/sysroot/usr/include/bits/wchar.h \
+ /extra/tool-chain/sysroot/usr/include/elf.h \
+ /extra/tool-chain/sysroot/usr/include/unistd.h \
+ /extra/tool-chain/sysroot/usr/include/bits/posix_opt.h \
+ /extra/tool-chain/sysroot/usr/include/bits/confname.h \
+ /extra/tool-chain/sysroot/usr/include/getopt.h \
+ /extra/tool-chain/sysroot/usr/include/fcntl.h \
+ /extra/tool-chain/sysroot/usr/include/bits/fcntl.h \
+ /extra/tool-chain/sysroot/usr/include/assert.h \
+ /extra/tool-chain/sysroot/usr/include/signal.h \
+ /extra/tool-chain/sysroot/usr/include/bits/signum.h \
+ /extra/tool-chain/sysroot/usr/include/bits/siginfo.h \
+ /extra/tool-chain/sysroot/usr/include/bits/sigaction.h \
+ /extra/tool-chain/sysroot/usr/include/bits/sigcontext.h \
+ /extra/tool-chain/sysroot/usr/include/asm/sigcontext.h \
+ /extra/tool-chain/sysroot/usr/include/linux/types.h \
+ /extra/tool-chain/sysroot/usr/include/asm/types.h \
+ /extra/tool-chain/sysroot/usr/include/asm-generic/types.h \
+ /extra/tool-chain/sysroot/usr/include/asm-generic/int-ll64.h \
+ /extra/tool-chain/sysroot/usr/include/asm/bitsperlong.h \
+ /extra/tool-chain/sysroot/usr/include/asm-generic/bitsperlong.h \
+ /extra/tool-chain/sysroot/usr/include/linux/posix_types.h \
+ /extra/tool-chain/sysroot/usr/include/linux/stddef.h \
+ /extra/tool-chain/sysroot/usr/include/asm/posix_types.h \
+ /extra/tool-chain/sysroot/usr/include/asm/posix_types_32.h \
+ /extra/tool-chain/sysroot/usr/include/bits/sigstack.h \
+ /extra/tool-chain/sysroot/usr/include/bits/sigthread.h \
+ ../../src/libdisasm/disasm.h ../../src/libdisasm/machine.dat \
+ /extra/tool-chain/sysroot/usr/include/pthread.h \
+ /extra/tool-chain/sysroot/usr/include/sched.h \
+ /extra/tool-chain/sysroot/usr/include/bits/sched.h \
+ /extra/tool-chain/sysroot/usr/include/bits/setjmp.h \
+ /extra/tool-chain/sysroot/usr/include/poll.h \
+ /extra/tool-chain/sysroot/usr/include/sys/poll.h \
+ /extra/tool-chain/sysroot/usr/include/bits/poll.h \
+ /extra/tool-chain/sysroot/usr/include/errno.h \
+ /extra/tool-chain/sysroot/usr/include/bits/errno.h \
+ /extra/tool-chain/sysroot/usr/include/linux/errno.h \
+ /extra/tool-chain/sysroot/usr/include/asm/errno.h \
+ /extra/tool-chain/sysroot/usr/include/asm-generic/errno.h \
+ /extra/tool-chain/sysroot/usr/include/asm-generic/errno-base.h \
+ ../../src/libgpukernel/gpukernel.h ../../src/libgpukernel/opencl.dat \
+ /extra/tool-chain/sysroot/usr/include/sys/time.h \
+ ../../src/libdisasm/machine.dat
+
+m2skernel.h:
+
+../../src/libmhandle/mhandle.h:
+
+/extra/tool-chain/sysroot/usr/include/stdlib.h:
+
+/extra/tool-chain/sysroot/usr/include/features.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/predefs.h:
+
+/extra/tool-chain/sysroot/usr/include/sys/cdefs.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/wordsize.h:
+
+/extra/tool-chain/sysroot/usr/include/gnu/stubs.h:
+
+/extra/tool-chain/sysroot/usr/include/gnu/stubs-32.h:
+
+/extra/tool-chain/tools/lib/gcc/i686-sangita-linux-gnu/4.4.3/include/stddef.h:
+
+/extra/tool-chain/sysroot/usr/include/sys/types.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/types.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/typesizes.h:
+
+/extra/tool-chain/sysroot/usr/include/time.h:
+
+/extra/tool-chain/sysroot/usr/include/endian.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/endian.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/byteswap.h:
+
+/extra/tool-chain/sysroot/usr/include/sys/select.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/select.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/sigset.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/time.h:
+
+/extra/tool-chain/sysroot/usr/include/sys/sysmacros.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/pthreadtypes.h:
+
+/extra/tool-chain/sysroot/usr/include/alloca.h:
+
+/extra/tool-chain/sysroot/usr/include/string.h:
+
+/extra/tool-chain/sysroot/usr/include/xlocale.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/string.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/string2.h:
+
+../../src/libstruct/debug.h:
+
+/extra/tool-chain/sysroot/usr/include/stdio.h:
+
+/extra/tool-chain/sysroot/usr/include/libio.h:
+
+/extra/tool-chain/sysroot/usr/include/_G_config.h:
+
+/extra/tool-chain/sysroot/usr/include/wchar.h:
+
+/extra/tool-chain/tools/lib/gcc/i686-sangita-linux-gnu/4.4.3/include/stdarg.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/stdio_lim.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/sys_errlist.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/stdio.h:
+
+../../src/libstruct/config.h:
+
+../../src/libstruct/buffer.h:
+
+../../src/libstruct/list.h:
+
+../../src/libstruct/lnlist.h:
+
+../../src/libmisc/misc.h:
+
+/extra/tool-chain/sysroot/usr/include/stdint.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/wchar.h:
+
+/extra/tool-chain/sysroot/usr/include/elf.h:
+
+/extra/tool-chain/sysroot/usr/include/unistd.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/posix_opt.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/confname.h:
+
+/extra/tool-chain/sysroot/usr/include/getopt.h:
+
+/extra/tool-chain/sysroot/usr/include/fcntl.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/fcntl.h:
+
+/extra/tool-chain/sysroot/usr/include/assert.h:
+
+/extra/tool-chain/sysroot/usr/include/signal.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/signum.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/siginfo.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/sigaction.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/sigcontext.h:
+
+/extra/tool-chain/sysroot/usr/include/asm/sigcontext.h:
+
+/extra/tool-chain/sysroot/usr/include/linux/types.h:
+
+/extra/tool-chain/sysroot/usr/include/asm/types.h:
+
+/extra/tool-chain/sysroot/usr/include/asm-generic/types.h:
+
+/extra/tool-chain/sysroot/usr/include/asm-generic/int-ll64.h:
+
+/extra/tool-chain/sysroot/usr/include/asm/bitsperlong.h:
+
+/extra/tool-chain/sysroot/usr/include/asm-generic/bitsperlong.h:
+
+/extra/tool-chain/sysroot/usr/include/linux/posix_types.h:
+
+/extra/tool-chain/sysroot/usr/include/linux/stddef.h:
+
+/extra/tool-chain/sysroot/usr/include/asm/posix_types.h:
+
+/extra/tool-chain/sysroot/usr/include/asm/posix_types_32.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/sigstack.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/sigthread.h:
+
+../../src/libdisasm/disasm.h:
+
+../../src/libdisasm/machine.dat:
+
+/extra/tool-chain/sysroot/usr/include/pthread.h:
+
+/extra/tool-chain/sysroot/usr/include/sched.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/sched.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/setjmp.h:
+
+/extra/tool-chain/sysroot/usr/include/poll.h:
+
+/extra/tool-chain/sysroot/usr/include/sys/poll.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/poll.h:
+
+/extra/tool-chain/sysroot/usr/include/errno.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/errno.h:
+
+/extra/tool-chain/sysroot/usr/include/linux/errno.h:
+
+/extra/tool-chain/sysroot/usr/include/asm/errno.h:
+
+/extra/tool-chain/sysroot/usr/include/asm-generic/errno.h:
+
+/extra/tool-chain/sysroot/usr/include/asm-generic/errno-base.h:
+
+../../src/libgpukernel/gpukernel.h:
+
+../../src/libgpukernel/opencl.dat:
+
+/extra/tool-chain/sysroot/usr/include/sys/time.h:
+
+../../src/libdisasm/machine.dat:

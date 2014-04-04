@@ -1,0 +1,105 @@
+mhandle.o: mhandle.c /extra/tool-chain/sysroot/usr/include/stdio.h \
+ /extra/tool-chain/sysroot/usr/include/features.h \
+ /extra/tool-chain/sysroot/usr/include/bits/predefs.h \
+ /extra/tool-chain/sysroot/usr/include/sys/cdefs.h \
+ /extra/tool-chain/sysroot/usr/include/bits/wordsize.h \
+ /extra/tool-chain/sysroot/usr/include/gnu/stubs.h \
+ /extra/tool-chain/sysroot/usr/include/gnu/stubs-32.h \
+ /extra/tool-chain/tools/lib/gcc/i686-sangita-linux-gnu/4.4.3/include/stddef.h \
+ /extra/tool-chain/sysroot/usr/include/bits/types.h \
+ /extra/tool-chain/sysroot/usr/include/bits/typesizes.h \
+ /extra/tool-chain/sysroot/usr/include/libio.h \
+ /extra/tool-chain/sysroot/usr/include/_G_config.h \
+ /extra/tool-chain/sysroot/usr/include/wchar.h \
+ /extra/tool-chain/tools/lib/gcc/i686-sangita-linux-gnu/4.4.3/include/stdarg.h \
+ /extra/tool-chain/sysroot/usr/include/bits/stdio_lim.h \
+ /extra/tool-chain/sysroot/usr/include/bits/sys_errlist.h \
+ /extra/tool-chain/sysroot/usr/include/bits/stdio.h \
+ /extra/tool-chain/sysroot/usr/include/stdlib.h \
+ /extra/tool-chain/sysroot/usr/include/sys/types.h \
+ /extra/tool-chain/sysroot/usr/include/time.h \
+ /extra/tool-chain/sysroot/usr/include/endian.h \
+ /extra/tool-chain/sysroot/usr/include/bits/endian.h \
+ /extra/tool-chain/sysroot/usr/include/bits/byteswap.h \
+ /extra/tool-chain/sysroot/usr/include/sys/select.h \
+ /extra/tool-chain/sysroot/usr/include/bits/select.h \
+ /extra/tool-chain/sysroot/usr/include/bits/sigset.h \
+ /extra/tool-chain/sysroot/usr/include/bits/time.h \
+ /extra/tool-chain/sysroot/usr/include/sys/sysmacros.h \
+ /extra/tool-chain/sysroot/usr/include/bits/pthreadtypes.h \
+ /extra/tool-chain/sysroot/usr/include/alloca.h \
+ /extra/tool-chain/sysroot/usr/include/string.h \
+ /extra/tool-chain/sysroot/usr/include/xlocale.h \
+ /extra/tool-chain/sysroot/usr/include/bits/string.h \
+ /extra/tool-chain/sysroot/usr/include/bits/string2.h \
+ /extra/tool-chain/sysroot/usr/include/assert.h
+
+/extra/tool-chain/sysroot/usr/include/stdio.h:
+
+/extra/tool-chain/sysroot/usr/include/features.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/predefs.h:
+
+/extra/tool-chain/sysroot/usr/include/sys/cdefs.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/wordsize.h:
+
+/extra/tool-chain/sysroot/usr/include/gnu/stubs.h:
+
+/extra/tool-chain/sysroot/usr/include/gnu/stubs-32.h:
+
+/extra/tool-chain/tools/lib/gcc/i686-sangita-linux-gnu/4.4.3/include/stddef.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/types.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/typesizes.h:
+
+/extra/tool-chain/sysroot/usr/include/libio.h:
+
+/extra/tool-chain/sysroot/usr/include/_G_config.h:
+
+/extra/tool-chain/sysroot/usr/include/wchar.h:
+
+/extra/tool-chain/tools/lib/gcc/i686-sangita-linux-gnu/4.4.3/include/stdarg.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/stdio_lim.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/sys_errlist.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/stdio.h:
+
+/extra/tool-chain/sysroot/usr/include/stdlib.h:
+
+/extra/tool-chain/sysroot/usr/include/sys/types.h:
+
+/extra/tool-chain/sysroot/usr/include/time.h:
+
+/extra/tool-chain/sysroot/usr/include/endian.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/endian.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/byteswap.h:
+
+/extra/tool-chain/sysroot/usr/include/sys/select.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/select.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/sigset.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/time.h:
+
+/extra/tool-chain/sysroot/usr/include/sys/sysmacros.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/pthreadtypes.h:
+
+/extra/tool-chain/sysroot/usr/include/alloca.h:
+
+/extra/tool-chain/sysroot/usr/include/string.h:
+
+/extra/tool-chain/sysroot/usr/include/xlocale.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/string.h:
+
+/extra/tool-chain/sysroot/usr/include/bits/string2.h:
+
+/extra/tool-chain/sysroot/usr/include/assert.h:
