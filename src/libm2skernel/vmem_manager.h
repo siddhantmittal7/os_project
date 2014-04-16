@@ -10,7 +10,8 @@
 struct page_table_entry
 {
 	int valid_bit;
-	uint32_t physical_addr;
+	uint32_t paddr;
+	uint32_t vaddr;
 	int dirtybit;
 	int swap_disk_num;
 	int swap_offset;
@@ -18,19 +19,16 @@ struct page_table_entry
 };
 
 typedef struct page_table_entry ptentry_t;
-	
+
 struct page_table
 {
 	ptentry_t translation[VIRT_MEM_PAGE_COUNT];
 };
 
-struct page_table page_table_create()
-{
-	size=0;
-}
-
-typedef uint32_t logical_addr_t;
-typedef uint32_t physical_addr_t;
+// struct page_table page_table_create()
+// {
+// 	size=0;
+// }
 
 typedef struct page_operation_t pageop_t;
 
@@ -39,9 +37,9 @@ typedef struct page_operation_t pageop_t;
 
 struct page_operation_t {
 	int operation;
-	logical_addr_t vaddr;
+	uint32_t vaddr;
 	ptentry_t *pte;
-	physical_addr_t paddr;
+	uint32_t paddr;
 };
 
 void vmem_load_page(ptentry_t *entry);
