@@ -175,6 +175,7 @@ void set_defaults(void) {
 	sectors=atoi(param_value);
 	sprintf(command,"(dd if=/dev/zero of=Sim_disk bs=%dx%dx%db count=1) 2> /dev/zero",heads,tracks,sectors);
 	system(command);
+    DISK_POINTER_ALL = 4500;
 }
 
 void install_signals(void){

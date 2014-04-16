@@ -7,22 +7,21 @@
 #define VIRT_MEM_PAGEMASK       (~(MEM_PAGESIZE-1))
 #define VIRT_MEM_PAGE_COUNT     1024
 
-struct page_table_entry
+struct ptentry
 {
 	int valid_bit;
 	uint32_t paddr;
-	uint32_t vaddr;
+	uint32_t tag;
 	int dirtybit;
-	int swap_disk_num;
-	int swap_offset;
 	int used;
-};
+	uint32_t disk_start
 
-typedef struct page_table_entry ptentry_t;
+	struct ptentry *next;
+};
 
 struct page_table
 {
-	ptentry_t translation[VIRT_MEM_PAGE_COUNT];
+	ptentry_t *entries[VIRT_MEM_PAGE_COUNT];
 };
 
 // struct page_table page_table_create()
