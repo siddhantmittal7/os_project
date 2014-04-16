@@ -100,6 +100,14 @@ struct mem_t {
 	struct page_table;
 	int safe;  /* Safe mode */
 	struct mem_host_mapping_t *host_mapping_list;  /* List of host mappings */
+
+	/* Virtual memory */
+	int free_frames_size; /* Number of free frames available */
+	uint32_t free_frames[MEM_PAGE_COUNT; /* Array of physical addresses of free frames */
+	ptentry_t *valid_pages[MEM_PAGE_COUNT];
+	int clock_pointer = 0;
+	int valid_pages_size = 0;
+
 };
 
 extern unsigned long mem_mapped_space;

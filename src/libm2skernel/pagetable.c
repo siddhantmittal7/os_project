@@ -1,27 +1,4 @@
-#define VIRT_MEM_LOGPAGESIZE    12
-#define VIRT_MEM_PAGESHIFT      MEM_LOGPAGESIZE
-#define VIRT_MEM_PAGESIZE       (1<<MEM_LOGPAGESIZE)
-#define VIRT_MEM_PAGEMASK       (~(MEM_PAGESIZE-1))
-#define VIRT_MEM_PAGE_COUNT     1024
-
-struct page_table_entry
-{
-	int valid_bit;
-	uint32_t physical_addr;
-	int dirtybit;
-	int swap_disk_num;
-	int swap_offset;
-	int used;
-}
-	
-struct page_table
-{
-	struct page_table_entry translation[VIRT_MEM_PAGE_COUNT];
-}
-struct page_table page_table_create()
-{
-	size=0;
-}
+#include "vmem_manager.h"
 
 uint32_t get_physical(struct page_table * P,uint32_t vaddr)
 {
@@ -51,7 +28,7 @@ uint32_t get_logical(struct page_table * P,uint32_t paddr)
 	}
 }
 
-struct page_table_entry * get_page_table_entry(struct page_table * P,uint32_t vaddr)
+ptentry_t * get_page_table_entry(struct page_table * P,uint32_t vaddr)
 {
 	uint32_t index, tag,paddr;
 	tag = vaddr & ~(VIRT_MEM_PAGESIZE - 1);
@@ -64,8 +41,8 @@ uint32_t make_an_entry(struct page_table * P,uint32_t vaddr,uint32_t paddr)
 	offset = vadrr & (VIRT_MEM_PAGESIZE -1);
 	index = (vaddr >> VIRT_MEM_LOGPAGESIZE) % MEM_PAGE_COUNT;
 	
-	struct page_table_entry * E;
-	E = calloc(1,size(struct page_table_entry));
+	ptentry_t * E;
+	E = calloc(1,size(ptentry_t));
 	E->valid_bit = 1;
 	E->dirtybit = 0;
 	E->physical_addr = paddr;
