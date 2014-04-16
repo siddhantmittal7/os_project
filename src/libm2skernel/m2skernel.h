@@ -96,6 +96,8 @@ struct mem_t {
 	struct mem_page_t *pages[MEM_PAGE_COUNT];
 	int sharing;  /* Number of contexts sharing memory map */
 	uint32_t last_address;  /* Address of last access */
+	uint32_t DISK_POINTER_NULL;
+	struct page_table;
 	int safe;  /* Safe mode */
 	struct mem_host_mapping_t *host_mapping_list;  /* List of host mappings */
 };

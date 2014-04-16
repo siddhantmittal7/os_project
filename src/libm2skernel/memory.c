@@ -23,7 +23,7 @@
 /* Total space allocated for memory pages */
 unsigned long mem_mapped_space = 0;
 unsigned long mem_max_mapped_space = 0;
-
+//uint32_t DISK_POINTER_ALL=4500;
 /* Safe mode */
 int mem_safe_mode = 1;
 
@@ -247,8 +247,13 @@ static void mem_access_page_boundary(struct mem_t *mem, uint32_t addr,
 	uint32_t offset;
 
 	/* Find memory page and compute offset. */
+	FILE* fpt;
+	fpt= fopen("../../Sim_disk","ab+");
 	page = mem_page_get(mem, addr);
 	offset = addr & (MEM_PAGESIZE - 1);
+	
+	fseek(fpt,DISK_POINTER_ALL,SEEK_SET);
+	
 	assert(offset + size <= MEM_PAGESIZE);
 
 	/* On nonexistent page, raise segmentation fault in safe mode,
@@ -273,17 +278,21 @@ static void mem_access_page_boundary(struct mem_t *mem, uint32_t addr,
 		page->perm |= mem_access_modif;
 
 	/* Check permissions in safe mode */
-	if (mem->safe && (page->perm & access) != access){
+	/*if (mem->safe && (page->perm & access) != access){
 		//fatal("mem_access: permission denied at 0x%x", addr);
             raise(SIGSEGV);
         }
-
+	*/
 	/* Read/execute access */
 	if (access == mem_access_read || access == mem_access_exec) {
 		if (page->data)
+		{
 			memcpy(buf, page->data + offset, size);
+		}
 		else
 			memset(buf, 0, size);
+		fread(buf,sizeof(char),size,fpt);
+		fclose(fpt);
 		return;
 	}
 
@@ -292,6 +301,9 @@ static void mem_access_page_boundary(struct mem_t *mem, uint32_t addr,
 		if (!page->data)
 			page->data = calloc(1, MEM_PAGESIZE);
 		memcpy(page->data + offset, buf, size);
+		fwrite(buf,sizeof(char),size,fpt);
+		DISK_POINTER_ALL += size; 
+		fclose(fpt);
 		return;
 	}
 

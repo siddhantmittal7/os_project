@@ -1,12 +1,13 @@
 #include<stdio.h>
 int main(){
-	char s[20000];
+	char s[2];
 	s[0] = 'a';
 	s[1] = 'b';
-	while(1)
+	int x=0;
+	while(x<90)
 	{
-		//syscall(402,'w',2,s,300,2);
-		s[1] = 'd';
+		//s[1] = 'd';
+		x++;
 		printf("out\n");
 	}
 	return 0;
