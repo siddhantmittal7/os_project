@@ -7,6 +7,8 @@
 #define VIRT_MEM_PAGEMASK       (~(MEM_PAGESIZE-1))
 #define VIRT_MEM_PAGE_COUNT     1024
 
+struct mem_t;
+
 struct ptentry
 {
 	int valid_bit;
@@ -14,20 +16,16 @@ struct ptentry
 	uint32_t tag;
 	int dirtybit;
 	int used;
-	uint32_t disk_start
+	uint32_t disk_start;
 
 	struct ptentry *next;
+	struct mem_host_mapping_t *host_mapping;  /* If other than null, page is host mapping */
 };
 
 struct page_table
 {
-	ptentry_t *entries[VIRT_MEM_PAGE_COUNT];
+	struct ptentry *entries[VIRT_MEM_PAGE_COUNT];
 };
-
-// struct page_table page_table_create()
-// {
-// 	size=0;
-// }
 
 typedef struct page_operation_t pageop_t;
 
@@ -37,11 +35,11 @@ typedef struct page_operation_t pageop_t;
 struct page_operation_t {
 	int operation;
 	uint32_t vaddr;
-	ptentry_t *pte;
+	struct ptentry *pte;
 	uint32_t paddr;
 };
 
-void vmem_load_page(ptentry_t *entry);
-void display_state();
+void vmem_load_page(struct mem_t *mem, struct ptentry *entry);
+void display_state(struct mem_t *mem);
 
 #endif

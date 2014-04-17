@@ -74,7 +74,7 @@ struct mem_page_t *mem_page_get(struct mem_t *mem, uint32_t addr)
 	else {
 		if (!entry->valid_bit)
 		{
-			vmem_load_page(entry);
+			vmem_load_page(mem, entry);
 		}
 		return get_page_from_ptentry(mem, entry);
 	}
@@ -98,12 +98,12 @@ struct mem_page_t *mem_page_get_next(struct mem_t *mem, uint32_t addr)
 	prev = NULL;
 
 	/* Look for entry exactly following addr. If it is found, return the page. */
-	while (entry && entry->tag != tag) {
+	while (entry && entry->tag != vtag) {
 		prev = entry;
 		entry = entry->next;
 	}
 	if (entry)
-		return get_page_from_ptentry(entry);
+		return get_page_from_ptentry(mem, entry);
 
 	/* Page following addr is not found, so check all memory pages to find
 	 * the one with the lowest tag following addr. */
@@ -111,29 +111,24 @@ struct mem_page_t *mem_page_get_next(struct mem_t *mem, uint32_t addr)
 	minentry = NULL;
 	for (vindex = 0; vindex < MEM_PAGE_COUNT; vindex++) {
 		for (entry = mem->pt->entries[vindex]; entry; entry = entry->next) {
-			if (entry->tag > tag && entry->tag < mintag) {
-				mintag = entry->tag;
+			if (entry->tag > vtag && entry->tag < minvtag) {
+				minvtag = entry->tag;
 				minentry = entry;
 			}
 		}
 	}
 
-	return get_page_from_ptentry(minentry);
+	return get_page_from_ptentry(mem, minentry);
 }
 
 struct ptentry* mem_ptentry_create(struct mem_t* mem, uint32_t vaddr)
 {
-	uint32_t vindex, vtag;
-	vtag = addr & ~(MEM_PAGESIZE - 1);
-	vindex = (addr >> MEM_LOGPAGESIZE) % MEM_PAGE_COUNT;
+	uint32_t vindex, vtag, offset;
+	vtag = vaddr & ~(MEM_PAGESIZE - 1);
+	vindex = (vaddr >> MEM_LOGPAGESIZE) % MEM_PAGE_COUNT;
 	
-	offset = vadrr & (VIRT_MEM_PAGESIZE -1);
-	index = (vaddr >> VIRT_MEM_LOGPAGESIZE) % MEM_PAGE_COUNT;
-	
-	struct ptentry *entry = calloc(1, sizeof(struct ptentry));
-
-	ptentry_t * E;
-	E = calloc(1,size(ptentry_t));
+	struct ptentry * E;
+	E = calloc(1, sizeof(struct ptentry));
 	E->valid_bit = 0;
 	E->dirtybit = 0;
 	E->paddr = 0;
@@ -141,7 +136,7 @@ struct ptentry* mem_ptentry_create(struct mem_t* mem, uint32_t vaddr)
 	DISK_POINTER_ALL += MEM_PAGESIZE;
 	E->tag = vtag;
 
-	vmem_load_page(E);
+	vmem_load_page(mem, E);
 
 	E->next = mem->pt->entries[vindex];
 	mem->pt->entries[vindex] = E;
@@ -181,8 +176,8 @@ static void mem_page_free(struct mem_t *mem, uint32_t addr)
 	prev = NULL;
 
 	/* Find page */
-	entry = mem->pt->entries[index];
-	while (entry && entry->tag != tag) {
+	entry = mem->pt->entries[vindex];
+	while (entry && entry->tag != vtag) {
 		prev = entry;
 		entry = entry->next;
 	}
@@ -195,7 +190,7 @@ static void mem_page_free(struct mem_t *mem, uint32_t addr)
 	if (hm) 
 	{
 		assert(hm->pages > 0);
-		assert(tag >= hm->addr && tag + MEM_PAGESIZE <= hm->addr + hm->size);
+		assert(vtag >= hm->addr && vtag + MEM_PAGESIZE <= hm->addr + hm->size);
 		hm->pages--;
 	if (!hm->pages)
 		mem_unmap_host(mem, hm->addr);
@@ -209,7 +204,7 @@ static void mem_page_free(struct mem_t *mem, uint32_t addr)
 	mem_mapped_space -= MEM_PAGESIZE;
 
 	if (entry->valid_bit) {
-		struct mem_page_t *page = get_page_from_ptentry(entry);
+		struct mem_page_t *page = get_page_from_ptentry(mem, entry);
 		mem->free_frames[mem->free_frames_size] = entry->paddr;
 		mem->free_frames_size++;
 		if (page->data)
@@ -352,7 +347,7 @@ static void mem_access_page_boundary(struct mem_t *mem, uint32_t addr,
 		if (!page->data)
 			page->data = calloc(1, MEM_PAGESIZE);
 		memcpy(page->data + offset, buf, size);
-		struct ptentry *entry = mem_ptentry_get(mem, dest);
+		struct ptentry *entry = mem_ptentry_get(mem, addr);
 		entry->dirtybit = 1;
 		return;
 	}
@@ -382,6 +377,14 @@ void mem_access(struct mem_t *mem, uint32_t addr, int size, void *buf,
 	}
 }
 
+/* Creation and destruction */
+struct page_table* mem_page_table_create()
+{
+	struct page_table *pt;
+	pt = calloc(1, sizeof(struct page_table));
+	// TODO Check if pt->entries are all NULL
+	return pt;
+}
 
 /* Creation and destruction */
 struct mem_t *mem_create()
@@ -392,11 +395,11 @@ struct mem_t *mem_create()
 	mem->sharing = 1;
 	mem->safe = mem_safe_mode;
 	mem->clock_pointer = 0;
-	mem->valid_pages_size = 0;
-	uint32_t addr = 0;
-	for (uint32_t i = 0; i < MEM_PAGE_COUNT; ++i)
+	mem->valid_ptentries_size = 0;
+	uint32_t addr = 0, i;
+	for (i = 0; i < MEM_PAGE_COUNT; ++i)
 	{
-		mem->pages[i] = (struct mem_page_t*)calloc(sizeof(struct mem_page_t))
+		mem->pages[i] = (struct mem_page_t*) calloc(1, sizeof(struct mem_page_t));
 		mem->free_frames[i] = addr;
 		addr += MEM_PAGESIZE;
 	}
@@ -404,16 +407,6 @@ struct mem_t *mem_create()
 	mem->pt = mem_page_table_create();
 	return mem;
 }
-
-/* Creation and destruction */
-struct page_table* mem_page_table_create()
-{
-	struct page_table *pt;
-	pt = calloc(1, sizeof(struct page_table));
-	// TODO Check if pt->entries are all NULL
-	return pt;
-}
-
 
 void mem_free(struct mem_t *mem)
 {
@@ -752,10 +745,10 @@ void mem_load(struct mem_t *mem, char *filename, uint32_t start)
  * Virtual Memory Implementation
  */
 
-void vmem_add_page(ptentry_t *page);
-ptentry_t* run_clock_policy();
-void perform_page_in(pageop_t op);
-void perform_page_out(pageop_t op);
+void vmem_add_page(struct mem_t *mem, struct ptentry *page);
+struct ptentry *run_clock_policy(struct mem_t *mem, struct ptentry *e);
+void perform_page_in(struct mem_t *mem, pageop_t op);
+void perform_page_out(struct mem_t *mem, pageop_t op);
 
 /*
  * Page Replacement
@@ -777,7 +770,7 @@ void vmem_load_page(struct mem_t *mem, struct ptentry *entry) {
 	}
 	else
 	{
-		ptentry_t *pte = run_clock_policy(mem, entry);
+		struct ptentry *pte = run_clock_policy(mem, entry);
 		pagein_op.paddr = pte->paddr;
 			
 		pageop_t pageout_op;
@@ -785,10 +778,10 @@ void vmem_load_page(struct mem_t *mem, struct ptentry *entry) {
 		pageout_op.pte = pte;
 		pageout_op.vaddr = pte->tag;
 		pageout_op.paddr = pte->paddr; // No physical address for pageout
-		perform_page_out(pageout_op);
+		perform_page_out(mem, pageout_op);
 	}
 	
-	perform_page_in(pagein_op);
+	perform_page_in(mem, pagein_op);
 }
 
 void* read_swap(uint32_t disk_start) {
@@ -812,10 +805,10 @@ void write_swap(uint32_t disk_start, void* data) {
 void perform_page_in(struct mem_t *mem, pageop_t op) {
 	printf("Page in: %d -> %d\n", op.vaddr, op.paddr);
 	void* data = read_swap(op.vaddr);
-	mem_page_t *page = get_page_from_ptentry(mem, op.pte->disk_start);
+	struct mem_page_t *page = get_page_from_ptentry(mem, op.pte);
 	page->data = (unsigned char*) data;
 	
-	page->host_mapping = ??;
+	// page->host_mapping = ??;
 
 	op.pte->valid_bit = 1;
 	op.pte->paddr = op.paddr;
@@ -840,38 +833,38 @@ void perform_page_out(struct mem_t *mem, pageop_t op) {
  * Page Replacement Policy (One Hand Clock Algorithm)
  */
 
-void vmem_add_page(struct mem_t *mem, ptentry_t *page) {
-	mem->valid_pages[mem->valid_pages_size] = page;
-	mem->valid_pages_size++;
+void vmem_add_page(struct mem_t *mem, struct ptentry *page) {
+	mem->valid_ptentries[mem->valid_ptentries_size] = page;
+	mem->valid_ptentries_size++;
 }
 
 void inc_pointer(struct mem_t *mem) {
 	mem->clock_pointer++;
-	if (mem->clock_pointer == mem->valid_pages_size)
+	if (mem->clock_pointer == mem->valid_ptentries_size)
 		mem->clock_pointer = 0;
 }
 
 void display_state(struct mem_t *mem) {
     int i;
-    for (i = 0; i < mem->valid_pages_size; i++) {
+    for (i = 0; i < mem->valid_ptentries_size; i++) {
         if (i == mem->clock_pointer)
             printf("*");
-        printf("[%d,%d]\t", mem->valid_pages[i]->vaddr, mem->valid_pages[i]->used);
+        printf("[%d,%d]\t", mem->valid_ptentries[i]->tag, mem->valid_ptentries[i]->used);
     }
     printf("\n");
 }
 
-ptentry_t* run_clock_policy(struct mem_t *mem, ptentry_t* newpage) {
+struct ptentry* run_clock_policy(struct mem_t *mem, struct ptentry* newpage) {
     printf("Starting page replacement, initial state:\n");
     display_state(mem);
-    ptentry_t **page_list = mem->valid_ptentries;
+    struct ptentry **page_list = mem->valid_ptentries;
 	while (1) {
 		int clock_pointer = mem->clock_pointer;
 		if (!page_list[clock_pointer]->used) {
-			ptentry_t * page_to_replace = page_list[clock_pointer];
+			struct ptentry * page_to_replace = page_list[clock_pointer];
 			page_list[clock_pointer] = newpage;
-			inc_pointer(nen);
-            printf("OUT: %d,  IN: %d\n", page_to_replace->vaddr, newpage->vaddr);
+			inc_pointer(mem);
+            printf("OUT: %d,  IN: %d\n", page_to_replace->tag, newpage->tag);
             return page_to_replace;
 		} else {
 			page_list[clock_pointer]->used = 0;

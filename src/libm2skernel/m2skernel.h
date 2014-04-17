@@ -106,9 +106,9 @@ struct mem_t {
 	/* Virtual memory */
 	int free_frames_size; /* Number of free frames available */
 	uint32_t free_frames[MEM_PAGE_COUNT]; /* Array of physical addresses of free frames */
-	ptentry_t *valid_ptentries[MEM_PAGE_COUNT];
+	struct ptentry *valid_ptentries[MEM_PAGE_COUNT];
 	int clock_pointer;
-	int valid_pages_size;
+	int valid_ptentries_size;
 
 };
 
